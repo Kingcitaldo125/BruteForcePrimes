@@ -28,8 +28,7 @@ bool divisible(const unsigned int i)
 std::vector<unsigned int> threaded_primes(
 	std::vector<unsigned int>& retv,
 	const unsigned int start_number,
-	const unsigned int end_number,
-	const unsigned int primes_per_thread)
+	const unsigned int end_number)
 {
 	std::vector<unsigned int> local_primes;
 	for (unsigned int i = start_number; i < end_number; ++i)
@@ -60,13 +59,15 @@ std::vector<unsigned int> n_primes(const unsigned int N, const int n_threads = 1
 	std::vector<unsigned int> retv{ 2 };
 	std::vector<std::thread> threads;
 
-	for (int i = 1; i < n_threads + 1; ++i)
+	for (int i = 0; i < n_threads; ++i)
 	{
-		// TBD: Remove debug prints?
-		//cout << "Start Number: " << start_number << endl;
-		//cout << "End Number: " << end_number << endl;
-
-		threads.push_back(std::thread(threaded_primes, std::ref(retv), start_number, end_number, primes_per_thread));
+		threads.push_back(
+			std::thread(
+				threaded_primes,
+				std::ref(retv),
+				start_number,
+				end_number)
+		);
 
 		start_number = end_number + 1;
 		end_number += primes_per_thread;
@@ -81,7 +82,7 @@ std::vector<unsigned int> n_primes(const unsigned int N, const int n_threads = 1
 }
 
 
-int main()
+int main(int argc, char** argv)
 {
 	//bool write_to_disk = true;
 	bool write_to_disk = false;
