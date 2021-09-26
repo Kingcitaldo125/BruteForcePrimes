@@ -10,7 +10,7 @@ using std::endl;
 
 static std::mutex mtx;
 
-bool divisible(const unsigned int i)
+constexpr bool divisible(const unsigned int i)
 {
 	if (i % 2 == 0)
 		return true;
