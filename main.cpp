@@ -61,7 +61,7 @@ std::vector<unsigned int> n_primes(const unsigned int N, const int n_threads = 1
 
 	for (int i = 0; i < n_threads; ++i)
 	{
-		threads.push_back(
+		threads.emplace_back(
 			std::thread(
 				threaded_primes,
 				std::ref(retv),
